@@ -44,8 +44,15 @@ export class MortgageCalculatorComponent implements OnInit {
   public lineChartData = computed<ChartConfiguration<'line'>['data']>(() => {
     const schedule = this.schedule();
 
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
     return {
-      labels: schedule.map(p => p.date.toLocaleDateString()),
+      labels: schedule.map(p => {
+        const d = p.date;
+        return `${d.getDate().toString().padStart(2, '0')}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getFullYear()}`;
+      }),
       datasets: [
         {
           data: schedule.map(p => p.remainingDebt),
@@ -54,7 +61,12 @@ export class MortgageCalculatorComponent implements OnInit {
           tension: 0.5,
           borderColor: 'rgb(79, 70, 229)',
           backgroundColor: 'rgba(79, 70, 229, 0.1)',
-          pointRadius: 0,
+          pointRadius: schedule.map(p =>
+            p.date.getMonth() === currentMonth && p.date.getFullYear() === currentYear ? 6 : 0
+          ),
+          pointBackgroundColor: schedule.map(p =>
+            p.date.getMonth() === currentMonth && p.date.getFullYear() === currentYear ? 'rgb(79, 70, 229)' : 'rgba(0,0,0,0)'
+          ),
           pointHitRadius: 10
         }
       ]
@@ -66,7 +78,14 @@ export class MortgageCalculatorComponent implements OnInit {
     maintainAspectRatio: false,
     scales: {
       x: {
-        display: false
+        display: true,
+        grid: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 8,
+          maxRotation: 0
+        }
       },
       y: {
         beginAtZero: true
