@@ -2,7 +2,7 @@ import { Component, computed, effect, inject, OnInit, signal } from '@angular/co
 import { CommonModule, CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { MortgageService, MonthlyPayment } from '../../services/mortgage.service';
+import { MortgageService, MonthlyPayment, DEFAULT_MORTGAGE_PARAMS } from '../../services/mortgage.service';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
@@ -21,10 +21,10 @@ export class MortgageCalculatorComponent implements OnInit {
   private router = inject(Router);
 
   form: FormGroup = this.fb.group({
-    amount: [300000, [Validators.required, Validators.min(0)]],
+    amount: [DEFAULT_MORTGAGE_PARAMS.amount, [Validators.required, Validators.min(0)]],
     startDate: [new Date().toISOString().split('T')[0], Validators.required],
-    months: [360, [Validators.required, Validators.min(1)]],
-    rate: [4.0, [Validators.required, Validators.min(0)]]
+    months: [DEFAULT_MORTGAGE_PARAMS.months, [Validators.required, Validators.min(1)]],
+    rate: [DEFAULT_MORTGAGE_PARAMS.rate, [Validators.required, Validators.min(0)]]
   });
 
   // Signals for derived state
@@ -146,7 +146,7 @@ export class MortgageCalculatorComponent implements OnInit {
     };
 
     const schedule = this.mortgageService.generateSchedule(params);
-    const debt = this.mortgageService.getCurrentDebt(params);
+    const debt = this.mortgageService.getCurrentDebt(params, schedule);
     const payment = this.mortgageService.calculateMonthlyPayment(params.amount, params.rate, params.months);
 
     this.schedule.set(schedule);

@@ -16,6 +16,17 @@ export interface MonthlyPayment {
   remainingDebt: number;
 }
 
+export const DEFAULT_MORTGAGE_PARAMS = {
+  amount: 300000,
+  months: 360,
+  rate: 4.0
+} as const;
+
+export interface YearlyInterest {
+  year: number;
+  interest: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -53,7 +64,7 @@ export class MortgageService {
     for (let i = 1; i <= months; i++) {
       // Calculate interest for this month
       const interest = currentDebt * monthlyRate;
-      
+
       // Principal part is payment minus interest
       let principal = monthlyPayment - interest;
 
@@ -82,27 +93,45 @@ export class MortgageService {
   }
 
   /**
-   * Calculates the current debt based on the current date.
+   * Calculates the current debt based on the current date using an existing schedule.
+   * If no schedule is provided, it generates one.
    */
-  getCurrentDebt(params: MortgageParams): number {
-    const schedule = this.generateSchedule(params);
+  getCurrentDebt(params: MortgageParams, existingSchedule?: MonthlyPayment[]): number {
+    const schedule = existingSchedule || this.generateSchedule(params);
     const now = new Date();
-    
-    // Find the last payment that happened before or on today
-    // We assume payments are made on the same day of the month as start date
-    // For simplicity, we just look for the month in the schedule that matches current time
-    
-    // Simple approach: find the latest entry where date <= now
+
+    // Find the latest entry where date <= now
     const pastPayments = schedule.filter(p => p.date <= now);
-    
+
     if (pastPayments.length === 0) {
       return params.amount; // No payments yet
     }
-    
+
     if (pastPayments.length >= schedule.length) {
       return 0; // Paid off
     }
 
     return pastPayments[pastPayments.length - 1].remainingDebt;
+  }
+
+  /**
+   * Calculates interest paid per year from a schedule
+   */
+  calculateYearlyInterest(schedule: MonthlyPayment[]): { yearly: YearlyInterest[], total: number } {
+    const interestByYear = new Map<number, number>();
+    let total = 0;
+
+    schedule.forEach(payment => {
+      const year = payment.date.getFullYear();
+      const current = interestByYear.get(year) || 0;
+      interestByYear.set(year, current + payment.interest);
+      total += payment.interest;
+    });
+
+    const yearly = Array.from(interestByYear.entries())
+      .map(([year, interest]) => ({ year, interest }))
+      .sort((a, b) => a.year - b.year);
+
+    return { yearly, total };
   }
 }
