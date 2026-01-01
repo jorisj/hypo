@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MortgageService, MonthlyPayment } from '../../services/mortgage.service';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartConfiguration, ChartOptions } from 'chart.js';
 
 @Component({
   selector: 'app-mortgage-calculator',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, RouterLink, BaseChartDirective],
   templateUrl: './mortgage-calculator.component.html',
   styles: []
 })
@@ -38,6 +40,46 @@ export class MortgageCalculatorComponent implements OnInit {
     const paid = amount - debt;
     return (paid / amount) * 100;
   });
+
+  public lineChartData = computed<ChartConfiguration<'line'>['data']>(() => {
+    const schedule = this.schedule();
+
+    return {
+      labels: schedule.map(p => p.date.toLocaleDateString()),
+      datasets: [
+        {
+          data: schedule.map(p => p.remainingDebt),
+          label: 'Restschuld',
+          fill: true,
+          tension: 0.5,
+          borderColor: 'rgb(79, 70, 229)',
+          backgroundColor: 'rgba(79, 70, 229, 0.1)',
+          pointRadius: 0,
+          pointHitRadius: 10
+        }
+      ]
+    };
+  });
+
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        display: false
+      },
+      y: {
+        beginAtZero: true
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        mode: 'index',
+        intersect: false
+      }
+    }
+  };
 
   toggleSettings() {
     this.settingsCollapsed.update(v => !v);

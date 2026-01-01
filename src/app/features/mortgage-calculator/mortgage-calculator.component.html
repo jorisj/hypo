@@ -115,6 +115,15 @@
                     </div>
                 </div>
 
+                <!-- Chart Section -->
+                <div class="bg-white rounded-2xl shadow-xl p-6 h-80">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Verloop Restschuld</h3>
+                    <div class="relative h-full w-full pb-8">
+                        <canvas baseChart [data]="lineChartData()" [options]="lineChartOptions" [type]="'line'">
+                        </canvas>
+                    </div>
+                </div>
+
                 <!-- Schedule Preview -->
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
                     <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
