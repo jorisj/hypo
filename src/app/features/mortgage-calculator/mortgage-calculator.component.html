@@ -1,11 +1,12 @@
-<div class="min-h-screen bg-slate-50 py-12 px-4 sm:px-6 lg:px-8 font-sans text-slate-900">
+<div
+    class="min-h-screen bg-slate-50 dark:bg-slate-900 py-12 px-4 sm:px-6 lg:px-8 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300">
     <div class="max-w-4xl mx-auto">
         <div class="text-center mb-12 flex justify-center items-center gap-3">
-            <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight sm:text-5xl mb-2">
+            <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight sm:text-5xl mb-2">
                 Hypotheek Overzicht
             </h1>
             <button (click)="toggleSettings()"
-                class="p-2 text-slate-900 hover:text-indigo-600 hover:bg-slate-100 rounded-full transition-all duration-200 mt-1"
+                class="p-2 text-slate-900 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-all duration-200 mt-1"
                 title="Instellingen wijzigen" aria-label="Toggle instellingen">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -18,14 +19,14 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Form Section -->
-            <!-- Form Section -->
             @if (!settingsCollapsed()) {
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-6 relative">
+                <div
+                    class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden p-6 relative transition-colors duration-300">
                     <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-bold text-slate-900">Instellingen</h2>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Instellingen</h2>
                         <button (click)="toggleSettings()"
-                            class="text-slate-400 hover:text-slate-600 transition-colors p-1 rounded-full hover:bg-slate-100">
+                            class="text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 transition-colors p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -37,13 +38,13 @@
                         <!-- Mortgage Amount -->
                         <div>
                             <label for="amount"
-                                class="block text-sm font-medium text-slate-700 mb-1">Hypotheekbedrag</label>
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Hypotheekbedrag</label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <span class="text-slate-500 sm:text-sm">€</span>
+                                    <span class="text-slate-500 dark:text-slate-400 sm:text-sm">€</span>
                                 </div>
                                 <input type="number" id="amount" formControlName="amount"
-                                    class="block w-full rounded-md border-slate-300 pl-7 py-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm"
+                                    class="block w-full rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white pl-7 py-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm transition-colors"
                                     placeholder="300000" />
                             </div>
                         </div>
@@ -51,28 +52,30 @@
                         <!-- Start Date -->
                         <div>
                             <label for="startDate"
-                                class="block text-sm font-medium text-slate-700 mb-1">Startdatum</label>
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Startdatum</label>
                             <input type="date" id="startDate" formControlName="startDate"
-                                class="block w-full rounded-md border-slate-300 py-2 px-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm" />
+                                class="block w-full rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white py-2 px-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm transition-colors" />
                         </div>
 
                         <!-- Duration (Months) -->
                         <div>
-                            <label for="months" class="block text-sm font-medium text-slate-700 mb-1">Looptijd
+                            <label for="months"
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Looptijd
                                 (maanden)</label>
                             <input type="number" id="months" formControlName="months"
-                                class="block w-full rounded-md border-slate-300 py-2 px-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm" />
+                                class="block w-full rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white py-2 px-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm transition-colors" />
                         </div>
 
                         <!-- Interest Rate -->
                         <div>
-                            <label for="rate" class="block text-sm font-medium text-slate-700 mb-1">Rentepercentage
+                            <label for="rate"
+                                class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Rentepercentage
                                 (%)</label>
                             <div class="relative rounded-md shadow-sm">
                                 <input type="number" id="rate" formControlName="rate" step="0.01"
-                                    class="block w-full rounded-md border-slate-300 py-2 px-3 pr-8 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm" />
+                                    class="block w-full rounded-md border-slate-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white py-2 px-3 pr-8 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm border shadow-sm transition-colors" />
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                                    <span class="text-slate-500 sm:text-sm">%</span>
+                                    <span class="text-slate-500 dark:text-slate-400 sm:text-sm">%</span>
                                 </div>
                             </div>
                         </div>
@@ -88,30 +91,33 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <!-- Current Debt -->
                     <div
-                        class="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-indigo-500 flex flex-col justify-between">
+                        class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 border-l-4 border-indigo-500 flex flex-col justify-between transition-colors duration-300">
                         <div>
-                            <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Huidige Restschuld
+                            <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                Huidige Restschuld
                             </p>
-                            <h3 class="text-3xl font-bold text-slate-900 mt-2">
+                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-2">
                                 {{ currentDebt() | currency:'EUR':'symbol':'1.0-0' }}
                             </h3>
                         </div>
                         <div class="mt-4">
-                            <div class="w-full bg-slate-200 rounded-full h-2.5">
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2.5">
                                 <div class="bg-indigo-600 h-2.5 rounded-full" [style.width.%]="progressPercentage()">
                                 </div>
                             </div>
-                            <p class="text-xs text-slate-500 mt-2 text-right">{{ progressPercentage() | number:'1.0-1'
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 text-right">{{
+                                progressPercentage() | number:'1.0-1'
                                 }}% Afgelost</p>
                         </div>
                     </div>
 
                     <!-- Monthly Payment -->
                     <div
-                        class="bg-white rounded-2xl shadow-xl p-6 border-l-4 border-emerald-500 flex flex-col justify-between">
+                        class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 border-l-4 border-emerald-500 flex flex-col justify-between transition-colors duration-300">
                         <div>
-                            <p class="text-sm font-medium text-slate-500 uppercase tracking-wider">Maandlast (Bruto)</p>
-                            <h3 class="text-3xl font-bold text-slate-900 mt-2">
+                            <p class="text-sm font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                                Maandlast (Bruto)</p>
+                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-2">
                                 {{ monthlyPayment() | currency:'EUR':'symbol':'1.2-2' }}
                             </h3>
                         </div>
@@ -119,8 +125,8 @@
                 </div>
 
                 <!-- Chart Section -->
-                <div class="bg-white rounded-2xl shadow-xl p-6 h-80">
-                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Verloop Restschuld</h3>
+                <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 h-80 transition-colors duration-300">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Verloop Restschuld</h3>
                     <div class="relative h-full w-full pb-8">
                         <canvas baseChart [data]="lineChartData()" [options]="lineChartOptions" [type]="'line'">
                         </canvas>
@@ -128,52 +134,58 @@
                 </div>
 
                 <!-- Schedule Preview -->
-                <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-slate-900">
+                <div
+                    class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl overflow-hidden transition-colors duration-300">
+                    <div
+                        class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/50 flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
                             Aflossingsschema {{ showFullSchedule() ? '' : '(Eerste 12 maanden)' }}
                         </h3>
                     </div>
                     <div class="overflow-x-auto" [class.max-h-[600px]]="showFullSchedule()"
                         [class.overflow-y-auto]="showFullSchedule()">
-                        <table class="min-w-full divide-y divide-slate-200 relative">
-                            <thead class="bg-slate-50 sticky top-0 z-10 shadow-sm">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-700 relative">
+                            <thead class="bg-slate-50 dark:bg-slate-700 sticky top-0 z-10 shadow-sm">
                                 <tr>
                                     <th scope="col"
-                                        class="px-3 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider bg-slate-50">
+                                        class="px-3 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
                                         Datum</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider bg-slate-50">
+                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
                                         Bedrag</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider bg-slate-50">
+                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
                                         Rente</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider bg-slate-50">
+                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
                                         Aflossing</th>
                                     <th scope="col"
-                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider bg-slate-50">
+                                        class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
                                         Restschuld</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-slate-200">
+                            <tbody class="bg-white dark:bg-slate-800 divide-y divide-slate-200 dark:divide-slate-700">
                                 @for (row of (showFullSchedule() ? schedule() : schedule().slice(0, 12)); track
                                 row.month) {
-                                <tr class="hover:bg-slate-50 transition-colors">
-                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-slate-900 font-medium">
+                                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                                    <td
+                                        class="px-3 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-100 font-medium">
                                         {{ row.date | date:'dd-MM-yyyy' }}
                                     </td>
-                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-slate-600 text-right">
+                                    <td
+                                        class="px-3 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400 text-right">
                                         {{ row.payment | currency:'EUR':'symbol':'1.2-2' }}
                                     </td>
-                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-rose-600 text-right">
+                                    <td
+                                        class="px-3 py-4 whitespace-nowrap text-sm text-rose-600 dark:text-rose-400 text-right">
                                         {{ row.interest | currency:'EUR':'symbol':'1.2-2' }}
                                     </td>
-                                    <td class="px-3 py-4 whitespace-nowrap text-sm text-emerald-600 text-right">
+                                    <td
+                                        class="px-3 py-4 whitespace-nowrap text-sm text-emerald-600 dark:text-emerald-400 text-right">
                                         {{ row.principal | currency:'EUR':'symbol':'1.2-2' }}
                                     </td>
                                     <td
-                                        class="px-3 py-4 whitespace-nowrap text-sm text-slate-900 text-right font-medium">
+                                        class="px-3 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-100 text-right font-medium">
                                         {{ row.remainingDebt | currency:'EUR':'symbol':'1.0-0' }}
                                     </td>
                                 </tr>
@@ -181,9 +193,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="bg-slate-50 px-6 py-4 border-t border-slate-200 flex justify-center">
+                    <div
+                        class="bg-slate-50 dark:bg-slate-700/50 px-6 py-4 border-t border-slate-200 dark:border-slate-700 flex justify-center">
                         <button type="button" (click)="toggleScheduleView()"
-                            class="text-indigo-600 hover:text-indigo-800 font-medium text-sm focus:outline-none focus:underline">
+                            class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium text-sm focus:outline-none focus:underline">
                             {{ showFullSchedule() ? 'Toon minder' : 'Toon alles' }}
                         </button>
                     </div>
@@ -193,7 +206,7 @@
 
             <div class="mt-8 text-center">
                 <a routerLink="/yearly-interest" queryParamsHandling="preserve"
-                    class="text-indigo-600 hover:text-indigo-800 font-medium hover:underline">
+                    class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium hover:underline">
                     Bekijk jaarlijks renteoverzicht &rarr;
                 </a>
             </div>

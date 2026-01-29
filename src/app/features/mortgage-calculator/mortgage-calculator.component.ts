@@ -80,15 +80,23 @@ export class MortgageCalculatorComponent implements OnInit {
       x: {
         display: true,
         grid: {
-          display: false
+          display: false,
+          color: '#334155'
         },
         ticks: {
           maxTicksLimit: 8,
-          maxRotation: 0
+          maxRotation: 0,
+          color: '#94a3b8'
         }
       },
       y: {
-        beginAtZero: true
+        beginAtZero: true,
+        grid: {
+          color: '#334155' // Slate 700 - visible on dark, subtle on light
+        },
+        ticks: {
+          color: '#94a3b8' // Slate 400 - readable on both
+        }
       }
     },
     plugins: {
