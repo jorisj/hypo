@@ -6,11 +6,12 @@ import { MortgageService, MonthlyPayment, DEFAULT_MORTGAGE_PARAMS } from '../../
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
+import { CompactCurrencyPipe } from '../../pipes/compact-currency.pipe';
 
 @Component({
   selector: 'app-mortgage-calculator',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, RouterLink, BaseChartDirective],
+  imports: [CommonModule, ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, RouterLink, BaseChartDirective, CompactCurrencyPipe],
   templateUrl: './mortgage-calculator.component.html',
   styles: []
 })
@@ -86,7 +87,17 @@ export class MortgageCalculatorComponent implements OnInit {
         ticks: {
           maxTicksLimit: 8,
           maxRotation: 0,
-          color: '#94a3b8'
+          color: '#94a3b8',
+          callback: function (val, index) {
+            const label = this.getLabelForValue(val as number);
+            if (window.innerWidth < 640) {
+              const parts = label.split('-');
+              if (parts.length === 3) {
+                return `${parts[1]}-${parts[2].substring(2)}`;
+              }
+            }
+            return label;
+          }
         }
       },
       y: {
@@ -95,7 +106,15 @@ export class MortgageCalculatorComponent implements OnInit {
           color: '#334155' // Slate 700 - visible on dark, subtle on light
         },
         ticks: {
-          color: '#94a3b8' // Slate 400 - readable on both
+          color: '#94a3b8', // Slate 400 - readable on both
+          callback: function (val, index) {
+            const value = val as number;
+            if (window.innerWidth < 640) {
+              if (value >= 1000000) return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'm';
+              if (value >= 1000) return (value / 1000).toFixed(0) + 'k';
+            }
+            return value.toLocaleString();
+          }
         }
       }
     },

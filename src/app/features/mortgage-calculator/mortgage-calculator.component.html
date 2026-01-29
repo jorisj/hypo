@@ -149,19 +149,25 @@
                                 <tr>
                                     <th scope="col"
                                         class="px-3 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
-                                        Datum</th>
+                                        <span class="sm:hidden">Dat.</span><span class="hidden sm:inline">Datum</span>
+                                    </th>
                                     <th scope="col"
                                         class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
-                                        Bedrag</th>
+                                        <span class="sm:hidden">Bedr.</span><span class="hidden sm:inline">Bedrag</span>
+                                    </th>
                                     <th scope="col"
                                         class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
                                         Rente</th>
                                     <th scope="col"
                                         class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
-                                        Aflossing</th>
+                                        <span class="sm:hidden">Afl.</span><span
+                                            class="hidden sm:inline">Aflossing</span>
+                                    </th>
                                     <th scope="col"
                                         class="px-3 py-3 text-right text-xs font-medium text-slate-500 dark:text-slate-300 uppercase tracking-wider bg-slate-50 dark:bg-slate-700">
-                                        Restschuld</th>
+                                        <span class="sm:hidden">Rest</span><span
+                                            class="hidden sm:inline">Restschuld</span>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-slate-800 divide-y divide-slate-200 dark:divide-slate-700">
@@ -170,23 +176,32 @@
                                 <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
                                     <td
                                         class="px-3 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-100 font-medium">
-                                        {{ row.date | date:'dd-MM-yyyy' }}
+                                        <span class="sm:hidden">{{ row.date | date:'MM-yy' }}</span>
+                                        <span class="hidden sm:inline">{{ row.date | date:'dd-MM-yyyy' }}</span>
                                     </td>
                                     <td
                                         class="px-3 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-400 text-right">
-                                        {{ row.payment | currency:'EUR':'symbol':'1.2-2' }}
+                                        <span class="sm:hidden">{{ row.payment | compactCurrency }}</span>
+                                        <span class="hidden sm:inline">{{ row.payment | currency:'EUR':'symbol':'1.2-2'
+                                            }}</span>
                                     </td>
                                     <td
                                         class="px-3 py-4 whitespace-nowrap text-sm text-rose-600 dark:text-rose-400 text-right">
-                                        {{ row.interest | currency:'EUR':'symbol':'1.2-2' }}
+                                        <span class="sm:hidden">{{ row.interest | compactCurrency }}</span>
+                                        <span class="hidden sm:inline">{{ row.interest | currency:'EUR':'symbol':'1.2-2'
+                                            }}</span>
                                     </td>
                                     <td
                                         class="px-3 py-4 whitespace-nowrap text-sm text-emerald-600 dark:text-emerald-400 text-right">
-                                        {{ row.principal | currency:'EUR':'symbol':'1.2-2' }}
+                                        <span class="sm:hidden">{{ row.principal | compactCurrency }}</span>
+                                        <span class="hidden sm:inline">{{ row.principal |
+                                            currency:'EUR':'symbol':'1.2-2' }}</span>
                                     </td>
                                     <td
                                         class="px-3 py-4 whitespace-nowrap text-sm text-slate-900 dark:text-slate-100 text-right font-medium">
-                                        {{ row.remainingDebt | currency:'EUR':'symbol':'1.0-0' }}
+                                        <span class="sm:hidden">{{ row.remainingDebt | compactCurrency }}</span>
+                                        <span class="hidden sm:inline">{{ row.remainingDebt |
+                                            currency:'EUR':'symbol':'1.0-0' }}</span>
                                     </td>
                                 </tr>
                                 }
